@@ -4,7 +4,12 @@
   "description": "Boilerplate template for creating joules.",
   "main": "index.js",
   "dependencies": {
-    "joule-node-response": "<2.0.0"
+    "google-auth-library": "^0.12.0",
+    "googleapis": "^26.0.1",
+    "jexl": "^1.1.4",
+    "joule-node-database": "0.0.7",
+    "joule-node-response": "<2.0.0",
+    "pify": "^3.0.0"
   },
   "devDependencies": {
     "joule-node-local": "<2.0.0"
