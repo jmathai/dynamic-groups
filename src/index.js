@@ -69,7 +69,7 @@ var api_get = function(event, context, response) {
       response.send(err);
       return;
     }
-    response.send(data);
+    response.send('data');
   });
 };
 
