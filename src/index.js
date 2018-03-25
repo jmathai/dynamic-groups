@@ -64,11 +64,9 @@ var handler = function(event, context) {
 var api_get = function(event, context, response) {
   myDb.get('dynamic-groups').done(function(data) {
     var dbData = data || {};
-    if(err) {
+    if(!data) {
       console.log("Error fetching database in api_get");
-      console.log(err);
-      response.send(err);
-      return;
+      console.log(data);
     }
     response.send(dbData);
   });
@@ -79,19 +77,17 @@ var api_post = function(event, context, response) {
       , rule = event.post.rule
       , emptyRules = {};
   myDb.get('dynamic-groups').done(function(records) {
-    if(err || !records) {
+    if(!records) {
       console.log("Error fetching database in api_post");
       console.log(records);
-      console.log(err);
-      response.send(err);
       records = emptyRules;
     }
     records[groupKey] = {expression: rule};
     myDb.set('dynamic-groups', records).done(function(data) {
-      if(err) {
+      if(!data) {
         console.log("Error updating database in api_post");
-        console.log(err);
-        response.send(err);
+        console.log(data);
+        response.send(data);
         return;
       }
       response.send(records);
