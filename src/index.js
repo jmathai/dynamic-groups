@@ -63,13 +63,14 @@ var handler = function(event, context) {
 
 var api_get = function(event, context, response) {
   myDb.get('dynamic-groups').done(function(err, data) {
+    var dbData = data || {};
     if(err) {
       console.log("Error fetching database in api_get");
       console.log(err);
       response.send(err);
       return;
     }
-    response.send(data);
+    response.send(dbData);
   });
 };
 
@@ -92,7 +93,7 @@ var api_post = function(event, context, response) {
         response.send(err);
         return;
       }
-      response.send(data);
+      response.send(records);
     });
   });
 };
