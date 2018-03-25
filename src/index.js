@@ -54,6 +54,9 @@ var handler = function(event, context) {
             break;
         }
         break;
+      case 'test':
+        response.send(event);
+        break;
     }
   }
 };
