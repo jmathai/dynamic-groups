@@ -46,6 +46,9 @@ var handler = function(event, context) {
     switch(pathArray[0]) {
       case 'api':
         switch(httpMethod) {
+          case 'DELETE':
+            api_delete(event, context, response);
+            break;
           case 'GET':
             api_get(event, context, response);
             break;
@@ -94,6 +97,29 @@ var api_post = function(event, context, response) {
     });
   });
 };
+
+var api_delete = function(event, context, response) {
+  var groupKey = event.post.groupKey;
+  myDb.get('dynamic-groups').done(function(records) {
+    if(!records || !records.hasOwnProperty(groupKey)) {
+      console.log("Error fetching database in api_delete");
+      console.log(records);
+      response.setHttpCode(404);
+      response.send(null);
+    }
+    delete records[groupKey];
+    myDb.set('dynamic-groups', records).done(function(data) {
+      if(!data) {
+        console.log("Error updating database in api_delete");
+        console.log(data);
+        response.send(data);
+        return;
+      }
+      response.send(records);
+    });
+  });
+};
+
 
 var webhook = function(event, context, response) {
   const userKey = event.post['id'];
