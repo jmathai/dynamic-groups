@@ -81,6 +81,7 @@ var api_post = function(event, context, response) {
   myDb.get('dynamic-groups').done(function(err, records) {
     if(err || !records) {
       console.log("Error fetching database in api_post");
+      console.log(records);
       console.log(err);
       response.send(err);
       records = emptyRules;
