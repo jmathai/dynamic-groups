@@ -144,9 +144,9 @@ var webhook = function(event, context, response) {
         return;
       }
       ruleCount = 0;
-      ruleTotal = Object.keys(rules).length;
+      ruleTotal = Object.keys(groupRules).length;
       for(group in groupRules) {
-        process_rule(group, rules[group].expression, user, response);
+        process_rule(group, groupRules[group].expression, user, response);
       }
     });
   });
