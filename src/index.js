@@ -136,8 +136,8 @@ var webhook = function(event, context, response) {
       , 'users-in-pm-ou@shelterplus.in': {expression: '"/Product Management" == orgUnitPath'}
     };*/
 
-    myDb.get('dynamic-groups').done(function(err, groupRules) {
-      if(err) {
+    myDb.get('dynamic-groups').done(function(groupRules) {
+      if(!groupRules) {
         console.log("Error fetching database in api_get");
         console.log(err);
         response.send(err);
