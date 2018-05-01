@@ -122,7 +122,7 @@ var api_delete = function(event, context, response) {
 
 
 var webhook = function(event, context, response) {
-  const userKey = event.post['id'];
+  const userKey = event.post['primaryEmail'];
   memberParams = {userKey:userKey, projection: 'full', auth: authClient};
   admin.users.get(memberParams, function(err, data) {
     if (err) {
@@ -131,10 +131,6 @@ var webhook = function(event, context, response) {
       return;
     }
     const user = data.data;
-    /*var rules = {
-      'users-in-pm-department@shelterplus.in': {expression: '"product management" in customSchemas.OrgDetails.Department|lower'}
-      , 'users-in-pm-ou@shelterplus.in': {expression: '"/Product Management" == orgUnitPath'}
-    };*/
 
     myDb.get('dynamic-groups').done(function(groupRules) {
       if(!groupRules) {
@@ -143,6 +139,10 @@ var webhook = function(event, context, response) {
         response.send(err);
         return;
       }
+      /*var groupRules = {
+        'users-in-pm-department@nps-limited.com': {expression: '"product management" in customSchemas.OrgDetails.Department|lower'}
+        , 'users-in-pm-ou@nps-limited.com': {expression: '"/Product Management" == orgUnitPath'}
+      };*/
       ruleCount = 0;
       ruleTotal = Object.keys(groupRules).length;
       for(group in groupRules) {
