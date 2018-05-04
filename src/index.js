@@ -38,6 +38,7 @@ var handler = function(event, context) {
       , pathArray = event.path
       , httpMethod = event.httpMethod;
 	response.setContext(context);
+	response.setHeader('Access-Control-Allow-Origin', '*');
 
   if(pathArray.length === 0) {
     // base path is the webhook
